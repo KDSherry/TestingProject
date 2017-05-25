@@ -10,6 +10,7 @@ public class Login {
 	By signInButton = By.id("SubmitLogin");
 	By usernameField = By.name("email");
 	By passwordField = By.name("passwd");
+	By home = By.xpath("//*[@id=\"header_logo\"]/a/img");
 	
 	public Login(WebDriver driver) { 
  		this.driver = driver; 
@@ -29,5 +30,9 @@ public class Login {
 	
 	public void enterPassword(String password){
 		driver.findElement(passwordField).sendKeys(password);
+	}
+	
+	public void navHome(){
+		driver.findElement(home).click();
 	}
 }

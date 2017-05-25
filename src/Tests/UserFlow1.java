@@ -37,14 +37,16 @@ public class UserFlow1 {
 		loginpage = new Login(driver);
 		accountpage = new Account(driver);
 		
+		
 		//Confirm Homepage has been accessed
 		assertNotNull(homepage.getLogo());
 		homepage.clickLoginLink();	
 		
+		
 		//On the Login Page
 		assertNotNull(loginpage.getHeading());
 		loginpage.enterUsername("kieran.sherry@tesco.net");
-		loginpage.enterPassword("test123");
+		loginpage.enterPassword("test123");		
 		loginpage.clickSignIn();
 		
 		//On the Account page

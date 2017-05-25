@@ -2,7 +2,9 @@ package Tests;
 
 import static org.junit.Assert.*;
 import java.util.concurrent.TimeUnit;
-//import org.junit.AfterClass;
+
+
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +19,7 @@ public class UserFlow2 {
 	Home homepage;
 	Login loginpage;
 	Account accountpage;
-	
+	Cart cart;
 	
 	@BeforeClass	
 	public static void setup(){		
@@ -34,13 +36,36 @@ public class UserFlow2 {
 		
 		homepage = new Home(driver);
 		loginpage = new Login(driver);
-		accountpage = new Account(driver);
+		cart= new Cart(driver);
 		
-		//Confirm Homepage has been accessed
+		//Confirm Homepage has been accessed                      
 		assertNotNull(homepage.getLogo());
-		homepage.addItem1();	
-		homepage.continue1();
 		
+		//add item to cart
+		homepage.addItem1();
+		System.out.println("Item selected and added to cart");
+		homepage.continueShopping();
+		
+		//add second item to cart
+		homepage.addItem2();
+		System.out.println("Item selected and added to cart");
+		homepage.continueShopping();
+		
+		//view cart
+		homepage.clickViewCart();
+		
+		//confirm viewing cart
+		cart.getHeading();
+		
+		//remove items from cart
+		cart.removeItem1();
+		cart.removeItem2();
+		
+		//check cart is empty
+		assertNotNull(cart.emptyCart());
+		
+		//navigate back to homepage
+		cart.clickHomePageLink();
 		
 		assertNotNull(homepage.getLogo());
 		System.out.println("Ending test " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -48,12 +73,12 @@ public class UserFlow2 {
 	
 	
 	
-//	@AfterClass
-//	public static void tearDown() { 
-//		try { 
-//			driver.close(); 
-//		} catch (Exception ex) { 
-//			System.out.println(ex.toString()); 
-//	 	} 
-//	} 
+	@AfterClass
+	public static void tearDown() { 
+		try { 
+			driver.close(); 
+		} catch (Exception ex) { 
+			System.out.println(ex.toString()); 
+	 	} 
+	} 
 }
