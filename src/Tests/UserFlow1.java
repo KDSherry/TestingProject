@@ -3,7 +3,7 @@ package Tests;
 
 import static org.junit.Assert.*;
 import java.util.concurrent.TimeUnit;
-//import org.junit.AfterClass;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -59,12 +59,12 @@ public class UserFlow1 {
 	
 	
 	
-//	@AfterClass
-//	public static void tearDown() { 
-//		try { 
-//			driver.close(); 
-//		} catch (Exception ex) { 
-//			System.out.println(ex.toString()); 
-//	 	} 
-//	} 
+	@AfterClass
+	public static void tearDown() { 
+		try { 
+			driver.close(); 
+		} catch (Exception ex) { 
+			System.out.println(ex.toString()); 
+	 	} 
+	} 
 }

@@ -2,7 +2,8 @@ package Tests;
 
 import static org.junit.Assert.*;
 import java.util.concurrent.TimeUnit;
-//import org.junit.AfterClass;
+
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -91,5 +92,14 @@ public class UserFlow4 {
 		ordersummary.proceedToCheckout();
 		
 		System.out.println("Ending test " + new Object(){}.getClass().getEnclosingMethod().getName());
+	}
+	
+	@AfterClass
+	public static void tearDown() { 
+		try { 
+			driver.close(); 
+		} catch (Exception ex) { 
+			System.out.println(ex.toString()); 
+	 	} 
 	}
 }
