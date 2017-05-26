@@ -62,7 +62,12 @@ public class UserFlow3 {
 		
 		//confirm different webpage
 		assertNotNull(advert.getTitle());
-		test.log(LogStatus.PASS, "Advert1 functions Successfully");
+		if(advert.getTitle()!= null){
+			test.log(LogStatus.PASS, "Advert1 functions Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Advert1 is Non-Functional");
+		}
 		
 		//go back to home and confirm
 		test.log(LogStatus.INFO, "Navigating Back to Home");
@@ -76,7 +81,13 @@ public class UserFlow3 {
 		
 		//confirm different webpage
 		assertNotNull(advert.getTitle());
-		test.log(LogStatus.PASS, "Advert2 functions Successfully");
+		System.out.println(advert.getTitle());
+		if(advert.getTitle()!= null){
+			test.log(LogStatus.PASS, "Advert2 functions Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Advert2 is Non-Functional");
+		}		
 		
 		//go back to home and confirm
 		driver.navigate().back();

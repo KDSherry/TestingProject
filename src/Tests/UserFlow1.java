@@ -39,11 +39,12 @@ public class UserFlow1 {
 	@Test
 	public void valid_Home_toLogin_andlogout_Navigation(){
 		System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
+		
 		report = new ExtentReports("C:\\Users\\Administrator\\Desktop\\java\\Result\\UserFlow1Test.html", true);
 		
 		// Initialise / start the test
 		test = report.startTest("Test login and logout");
-		test.log(LogStatus.INFO, "Browser started");
+		test.log(LogStatus.INFO, "Test started");
 				
 		homepage = new Home(driver);
 		loginpage = new Login(driver);
@@ -63,12 +64,23 @@ public class UserFlow1 {
 		//Enter user email
 		test.log(LogStatus.INFO, "Entering User Email");
 		loginpage.enterUsername("kieran.sherry@tesco.net");
-		test.log(LogStatus.PASS, "Email Entered Successfully");
+		if(loginpage.getEnteredEmail().equals("kieran.sherry@tesco.net")){
+			test.log(LogStatus.PASS, "User Email Entered Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Email Entered Unsuccessfully");
+		}
 		
 		//Enter User Password
 		test.log(LogStatus.INFO, "Entering User Password");
 		loginpage.enterPassword("test123");
-		test.log(LogStatus.PASS, "Password Entered Successfully");
+		if(loginpage.getEnteredPassword().equals("test123")){
+			test.log(LogStatus.PASS, "Password Entered Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Password Entered Unsuccessfully");
+		}
+		
 		
 		//Signing in User
 		test.log(LogStatus.INFO, "Signing in");
@@ -78,7 +90,13 @@ public class UserFlow1 {
 		//On the Account page
 		test.log(LogStatus.INFO, "Confirming navigation to the Account Page");
 		assertNotNull(accountpage.getHeading());
-		test.log(LogStatus.PASS, "Confirmed on the Account Page");
+		if(accountpage.getHeading() != null){
+			test.log(LogStatus.PASS, "Confirmed on the Account Page");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Failure: Not on the Account Page");
+		}
+		
 		
 		//Signing out
 		test.log(LogStatus.INFO, "Signing out from the Account Page");
@@ -88,7 +106,12 @@ public class UserFlow1 {
 		//Confirming back on Homepage 
 		test.log(LogStatus.INFO, "Confirming navigation to the Home Page");
 		assertNotNull(homepage.getLogo());
-		test.log(LogStatus.PASS, "Confirmed on the Home Page");
+		if(homepage.getLogo() != null){
+			test.log(LogStatus.PASS, "Confirmed on the Home Page");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Failure: Not on the Home Page");
+		}
 		
 		System.out.println("Ending test " + new Object(){}.getClass().getEnclosingMethod().getName());
 

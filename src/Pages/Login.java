@@ -35,4 +35,12 @@ public class Login {
 	public void navHome(){
 		driver.findElement(home).click();
 	}
+	
+	public String getEnteredEmail(){
+		return driver.findElement(usernameField).getAttribute("value");
+	}
+	
+	public String getEnteredPassword(){
+		return driver.findElement(passwordField).getAttribute("value");
+	}
 }

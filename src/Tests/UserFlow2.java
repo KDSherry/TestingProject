@@ -82,7 +82,12 @@ public class UserFlow2 {
 				
 		//check cart is empty
 		assertNotNull(cart.emptyCart());
-		test.log(LogStatus.PASS, "Cart Emptied Successfully");
+		if(cart.emptyCart() != null){
+			test.log(LogStatus.PASS, "Cart Emptied Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Cart Emptied Unsuccessfully");
+		}
 		
 		//navigate back to homepage
 		cart.clickHomePageLink();

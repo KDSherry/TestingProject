@@ -67,6 +67,12 @@ public class UserFlow4 {
 		test.log(LogStatus.INFO, "Logging in");
 		homepage.clickLoginLink();
 		assertNotNull(loginpage.getHeading());
+		if(loginpage.getHeading()!= null){
+			test.log(LogStatus.PASS, "Navigated to Login Page Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Failed to Navigate to Login Page");
+		}
 		
 		//login
 		loginpage.enterUsername("kieran.sherry@tesco.net");
@@ -82,13 +88,23 @@ public class UserFlow4 {
 		test.log(LogStatus.INFO, "Navigating to Dresses");
 		homepage.clickDresses();
 		assertEquals(dressespage.getTitle(),"DRESSES ");
-		test.log(LogStatus.PASS, "Navigated to Dresses Successfully");
-		
+		if(dressespage.getTitle().equals("DRESSES ")){
+			test.log(LogStatus.PASS, "Navigated to Dresses Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Failed to Navigate to Dresses");
+		}
+				
 		//Navigate to summer dresses + confirm navigation
 		test.log(LogStatus.INFO, "Navigating to Dresses");
 		dressespage.clickSummerDresses();
-		assertEquals(summerdressespage.getTitle(),"SUMMER DRESSES ");
-		test.log(LogStatus.PASS, "Navigated to Summer Dresses Successfully");
+		assertEquals(summerdressespage.getTitle(),"SUMMER DRESSES ");		
+		if(summerdressespage.getTitle().equals("SUMMER DRESSES ")){
+			test.log(LogStatus.PASS, "Navigated to Summer Dresses Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Failed to Navigate to Summer Dresses");
+		}
 		
 		//add summer dress to cart
 		test.log(LogStatus.INFO, "Add Summer Dress to Cart");
@@ -98,8 +114,13 @@ public class UserFlow4 {
 		//Navigate to T-shirts + confirm navigation
 		test.log(LogStatus.INFO, "Navigating to T-Shirts");
 		cartpage.clickTShirtLink();
-		assertEquals(tshirts.getTitle(), "T-SHIRTS ");
-		test.log(LogStatus.PASS, "Navigated to T-Shirts Successfully");
+		assertEquals(tshirts.getTitle(), "T-SHIRTS ");		
+		if(tshirts.getTitle().equals("T-SHIRTS ")){
+			test.log(LogStatus.PASS, "Navigated to T-Shirts Successfully");
+		}
+		else{
+			test.log(LogStatus.FAIL, "Failed to Navigate to T-Shirts");
+		}
 		
 		//add T-shirt to cart
 		test.log(LogStatus.INFO, "Add T-Shirt to Cart");
@@ -109,16 +130,19 @@ public class UserFlow4 {
 		//checkout
 		//Cart Page
 		test.log(LogStatus.INFO, "Click Checkout On Cart");
+		assertNotNull(cartpage.getHeading());
 		cartpage.checkout();
 		test.log(LogStatus.PASS, "Checkout Clicked Successfully");
 		
 		//Address Page
 		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Address Page");
+		assertEquals(addresspage.getHeading(),"ADDRESSES");
 		addresspage.proceedToCheckout();
 		test.log(LogStatus.PASS, "Proceed To Checkout Clicked Successfully");
 		
 		//Shipping Page
 		test.log(LogStatus.INFO, "Click CheckBox On Shipping Page");
+		assertEquals(shippingpage.getHeading(),"SHIPPING");
 		shippingpage.clickCheckBox();
 		test.log(LogStatus.PASS, "Checkbox Clicked Successfully");
 		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Shipping Page");
@@ -127,11 +151,13 @@ public class UserFlow4 {
 		
 		//Payment Page
 		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Payment Page");
+		assertEquals(paymentpage.getHeading(),"PLEASE CHOOSE YOUR PAYMENT METHOD");
 		paymentpage.proceedToCheckout();
 		test.log(LogStatus.PASS, "Proceed To Checkout Clicked Successfully");
 		
 		//Order Summary Page
 		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Order Summary Page");
+		assertEquals(ordersummary.getHeading(),"ORDER SUMMARY");
 		ordersummary.proceedToCheckout();
 		test.log(LogStatus.PASS, "Proceed To Checkout Clicked Successfully");
 		
