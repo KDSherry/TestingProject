@@ -9,10 +9,17 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import Pages.*;
 
 public class UserFlow1 {
-
+	
+	ExtentReports report; 
+	ExtentTest test; 
 	WebElement element;
 	static WebDriver driver;
 	
@@ -32,7 +39,12 @@ public class UserFlow1 {
 	@Test
 	public void valid_Home_toLogin_andlogout_Navigation(){
 		System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
+		report = new ExtentReports("C:\\Users\\Administrator\\Desktop\\java\\Result\\UserFlow1Test.html", true);
 		
+		// Initialise / start the test
+		test = report.startTest("Test login and logout");
+		test.log(LogStatus.INFO, "Browser started");
+				
 		homepage = new Home(driver);
 		loginpage = new Login(driver);
 		accountpage = new Account(driver);
@@ -40,21 +52,51 @@ public class UserFlow1 {
 		
 		//Confirm Homepage has been accessed
 		assertNotNull(homepage.getLogo());
+		test.log(LogStatus.INFO, "Navigating to Login Page");
 		homepage.clickLoginLink();	
 		
 		
 		//On the Login Page
 		assertNotNull(loginpage.getHeading());
+		test.log(LogStatus.PASS, "Login page Accessed");
+		
+		//Enter user email
+		test.log(LogStatus.INFO, "Entering User Email");
 		loginpage.enterUsername("kieran.sherry@tesco.net");
-		loginpage.enterPassword("test123");		
+		test.log(LogStatus.PASS, "Email Entered Successfully");
+		
+		//Enter User Password
+		test.log(LogStatus.INFO, "Entering User Password");
+		loginpage.enterPassword("test123");
+		test.log(LogStatus.PASS, "Password Entered Successfully");
+		
+		//Signing in User
+		test.log(LogStatus.INFO, "Signing in");
 		loginpage.clickSignIn();
+		test.log(LogStatus.PASS, "User Signed in Successfully");
 		
 		//On the Account page
+		test.log(LogStatus.INFO, "Confirming navigation to the Account Page");
 		assertNotNull(accountpage.getHeading());
-		accountpage.clickSignOut();
+		test.log(LogStatus.PASS, "Confirmed on the Account Page");
 		
+		//Signing out
+		test.log(LogStatus.INFO, "Signing out from the Account Page");
+		accountpage.clickSignOut();
+		test.log(LogStatus.PASS, "User Signed Out Successfully");
+		
+		//Confirming back on Homepage 
+		test.log(LogStatus.INFO, "Confirming navigation to the Home Page");
 		assertNotNull(homepage.getLogo());
+		test.log(LogStatus.PASS, "Confirmed on the Home Page");
+		
 		System.out.println("Ending test " + new Object(){}.getClass().getEnclosingMethod().getName());
+
+		// report the test as a pass
+		test.log(LogStatus.PASS, "Login and Logout: Successful");
+		report.endTest(test);
+		report.flush();
+
 	}
 	
 	

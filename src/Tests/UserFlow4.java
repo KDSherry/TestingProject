@@ -9,10 +9,17 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import Pages.*;
 
 public class UserFlow4 {
 
+	ExtentReports report; 
+	ExtentTest test; 
 	WebElement element;
 	static WebDriver driver;
 	
@@ -37,8 +44,12 @@ public class UserFlow4 {
 	} 
 	
 	@Test
-	public void valid_ad_viewer_test(){
+	public void valid_purchase_of_multiple_items(){
 		System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
+		report = new ExtentReports("C:\\Users\\Administrator\\Desktop\\java\\Result\\UserFlow4Test.html", true);
+		
+		test = report.startTest("Test Purchasing of Products");
+		test.log(LogStatus.INFO, "Browser started");
 		
 		homepage = new Home(driver);
 		dressespage = new Dresses(driver);
@@ -53,6 +64,7 @@ public class UserFlow4 {
 		ordersummary = new OrderSummary(driver);
 		
 		//nav to login
+		test.log(LogStatus.INFO, "Logging in");
 		homepage.clickLoginLink();
 		assertNotNull(loginpage.getHeading());
 		
@@ -61,37 +73,73 @@ public class UserFlow4 {
 		loginpage.enterPassword("test123");		
 		loginpage.clickSignIn();
 		accountpage.navHome();
+		test.log(LogStatus.PASS, "Logged in Successfully");
 		
 		//back to homepage + confirm navigation
 		assertNotNull(homepage.getLogo());
 		
 		//Navigate to dresses + confirm navigation
+		test.log(LogStatus.INFO, "Navigating to Dresses");
 		homepage.clickDresses();
 		assertEquals(dressespage.getTitle(),"DRESSES ");
+		test.log(LogStatus.PASS, "Navigated to Dresses Successfully");
 		
 		//Navigate to summer dresses + confirm navigation
+		test.log(LogStatus.INFO, "Navigating to Dresses");
 		dressespage.clickSummerDresses();
 		assertEquals(summerdressespage.getTitle(),"SUMMER DRESSES ");
+		test.log(LogStatus.PASS, "Navigated to Summer Dresses Successfully");
 		
 		//add summer dress to cart
+		test.log(LogStatus.INFO, "Add Summer Dress to Cart");
 		summerdressespage.clickSDItem();
+		test.log(LogStatus.PASS, "Summer Dress added to Cart Successfully");
 		
 		//Navigate to T-shirts + confirm navigation
+		test.log(LogStatus.INFO, "Navigating to T-Shirts");
 		cartpage.clickTShirtLink();
 		assertEquals(tshirts.getTitle(), "T-SHIRTS ");
+		test.log(LogStatus.PASS, "Navigated to T-Shirts Successfully");
 		
 		//add T-shirt to cart
+		test.log(LogStatus.INFO, "Add T-Shirt to Cart");
 		tshirts.clickTSItem();
+		test.log(LogStatus.PASS, "T-Shirt added to Cart Successfully");
 		
 		//checkout
+		//Cart Page
+		test.log(LogStatus.INFO, "Click Checkout On Cart");
 		cartpage.checkout();
+		test.log(LogStatus.PASS, "Checkout Clicked Successfully");
+		
+		//Address Page
+		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Address Page");
 		addresspage.proceedToCheckout();
+		test.log(LogStatus.PASS, "Proceed To Checkout Clicked Successfully");
+		
+		//Shipping Page
+		test.log(LogStatus.INFO, "Click CheckBox On Shipping Page");
 		shippingpage.clickCheckBox();
+		test.log(LogStatus.PASS, "Checkbox Clicked Successfully");
+		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Shipping Page");
 		shippingpage.proceedToCheckout();
+		test.log(LogStatus.PASS, "Proceed To Checkout Clicked Successfully");
+		
+		//Payment Page
+		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Payment Page");
 		paymentpage.proceedToCheckout();
+		test.log(LogStatus.PASS, "Proceed To Checkout Clicked Successfully");
+		
+		//Order Summary Page
+		test.log(LogStatus.INFO, "Click 'Proceed To Checkout' On Order Summary Page");
 		ordersummary.proceedToCheckout();
+		test.log(LogStatus.PASS, "Proceed To Checkout Clicked Successfully");
 		
 		System.out.println("Ending test " + new Object(){}.getClass().getEnclosingMethod().getName());
+		
+		test.log(LogStatus.PASS, "Test Purchasing of Products: Passed");
+		report.endTest(test);
+		report.flush();
 	}
 	
 	@AfterClass
